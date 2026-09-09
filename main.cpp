@@ -24,6 +24,15 @@ int main(){
         case 10:
             problem_10();
             break;
+        case 12:
+            problem_12();
+            break;
+        case 14:
+            problem_14();
+            break;
+        case 16:
+            problem_16();
+            break;
         case 19:
             return 0;
         default:
