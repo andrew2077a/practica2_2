@@ -33,6 +33,9 @@ int main(){
         case 16:
             problem_16();
             break;
+        case 18:
+            problem_18();
+            break;
         case 19:
             return 0;
         default:

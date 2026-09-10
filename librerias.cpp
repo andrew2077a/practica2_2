@@ -374,17 +374,60 @@ void problem_14(){
 
 }
 
-void problem_16(){
-    int n;
-    long long caminos = 1;
-    cout<<"Ingrese un numero n para saber cuantos caminos serian para llegar al final en un cuadrado nxn"<<endl;
-    cin>>n;
-
+void caminous( long long & caminos,int n ){
     // Se calcula (2n)! / (n! * n!) acumulando la multiplicación y división paso a paso.
     // Esto evita generar números gigantes intermedios que rompan el tipo de dato.
     for (int i = 1; i <= n; i++) {
         caminos = caminos * (n + i) / i; // Agregado: acumula la fracción multiplicando (n+i) y dividiendo entre i en cada vuelta
     }
+}
 
+void problem_16(){
+    int n;
+    long long caminos = 1;
+    cout<<"Ingrese un numero n para saber cuantos caminos serian para llegar al final en un cuadrado nxn"<<endl;
+    cin>>n;
+    caminous( caminos, n);
     cout<<"El numero de caminos es: "<<caminos<<endl;
+}
+
+long long factorial(const int & n){
+    long long fat=1;
+    for (int i = n; i>=2; --i) {
+        fat*=i;
+    }
+    return fat;
+}
+// Función que calcula y muestra la permutación directamente
+void pos(long long n) {
+    // Lista de dígitos disponibles para seleccionar
+    int numeros[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int *p = numeros; // Puntero apuntando al inicio del arreglo
+    int tam = 10;     // Cantidad de elementos restantes
+    n--;              // Se resta 1 para trabajar con índices base 0
+
+    // Se recorre desde 9! hasta 0! para determinar cada posición del resultado
+    for(int i = 9; i >= 0; i--) {
+        long long f = factorial(i); // Factorial de la cantidad de números restantes
+        int indice = n / f;         // Posición del número a tomar en el arreglo disponible
+
+        cout << *(p + indice);     // Imprime el número seleccionado usando aritmética de punteros
+
+        // Desplaza los elementos a la izquierda para borrar el número usado
+        for(int j = indice; j < tam - 1; j++) {
+            *(p + j) = *(p + j + 1);
+        }
+        tam--;     // Se reduce el tamaño útil del arreglo
+        n %= f;    // Residuo para la siguiente iteración
+    }
+    cout << endl;
+}
+
+void problem_18(){
+    long long n;
+    cout << "Ingrese un numero n para hallar la enesima permutacion lexicografica de los numeros entre 0 y 9: " << endl;
+    cin >> n;
+
+    cout << "La permutacion numero " << n << " es: ";
+    pos(n);
 }
